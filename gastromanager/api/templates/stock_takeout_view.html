@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Stock Takeout</h1>
+  <form method="post">
+    {% csrf_token %}
+    <label for="stock_item">Select Ice Cream Stock:</label>
+    <select name="stock_item" id="stock_item">
+      {% for item in stock_items %}
+        <option value="{{ item.id }}">{{ item.recipe.name }} - {{ item.size }} - {{ item.quantity }} available</option>
+      {% endfor %}
+    </select><br>
+
+    <label for="quantity_moved">Quantity Moved:</label>
+    <input type="number" name="quantity_moved" step="0.01" required><br>
+
+    <label for="date_moved">Date Moved:</label>
+    <input type="date" name="date_moved" required><br>
+
+    <input type="submit" value="Move Stock">
+  </form>
+{% endblock %}

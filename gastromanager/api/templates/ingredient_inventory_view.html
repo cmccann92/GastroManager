@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Ingredient Inventory</h2>
+
+  {% if request.user.level == 'Manager' %}
+    <form method="post">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit">Save Changes</button>
+    </form>
+  {% endif %}
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Ingredient Name</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for inventory in ingredients_inventory %}
+        <tr>
+          <td>{{ inventory.ingredient_name }}</td>
+          <td>{{ inventory.quantity }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

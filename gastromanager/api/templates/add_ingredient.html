@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Add Ingredient</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="ingredient_name">Ingredient Name</label>
+      <input type="text" name="ingredient_name" id="ingredient_name" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="quantity">Quantity</label>
+      <input type="number" name="quantity" id="quantity" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="unit_weight">Unit Weight</label>
+      <input type="text" name="unit_weight" id="unit_weight" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="lot_number">Lot Number</label>
+      <input type="text" name="lot_number" id="lot_number" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="expiration_date">Expiration Date</label>
+      <input type="date" name="expiration_date" id="expiration_date" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="temperature">Temperature</label>
+      <input type="number" name="temperature" id="temperature" class="form-control">
+    </div>
+    <div class="form-group">
+      <label for="observations">Observations</label>
+      <textarea name="observations" id="observations" class="form-control" rows="4"></textarea>
+    </div>
+    <button type="submit" class="btn btn-primary">Add Ingredient</button>
+  </form>
+{% endblock %}

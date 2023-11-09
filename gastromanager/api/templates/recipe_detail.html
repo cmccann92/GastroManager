@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Recipe Details</h2>
+
+  <table class="table">
+    <tr>
+      <th>Recipe Flavor</th>
+      <td>{{ recipe.flavor }}</td>
+    </tr>
+    <tr>
+      <th>Ingredients</th>
+      <td>
+        <ul>
+          {% for recipe_ingredient in recipe.ingredients.all %}
+            <li>
+              {{ recipe_ingredient.ingredient.name }} - {{ recipe_ingredient.quantity }} grams
+            </li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th>Base Ingredients</th>
+      <td>
+        <ul>
+          {% for base_ingredient in recipe.base_ingredients.all %}
+            <li>
+              {{ base_ingredient.name }} - {{ base_ingredient.recipeingredient_set.get(recipe=recipe).quantity }} grams
+            </li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <a href="{% url 'recipe_list' %}" class="btn btn-primary">Back to Recipe List</a>
+  
+  {% if user_level == "Manager" %}
+    <a href="{% url 'update_recipe' recipe.pk %}" class="btn btn-warning">Update Recipe</a>
+  {% endif %}
+</div>
+{% endblock %}

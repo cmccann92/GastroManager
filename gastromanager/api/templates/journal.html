@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Journal</h1>
+  <div class="filter-form">
+    <form method="get" action="{% url 'view_journal' %}">
+      <label for="filter">Filter:</label>
+      <select name="filter" id="filter">
+        <option value="all" {% if filter_type == 'all' %}selected{% endif %}>All</option>
+        <option value="today" {% if filter_type == 'today' %}selected{% endif %}>Today</option>
+        <option value="this_week" {% if filter_type == 'this_week' %}selected{% endif %}>This Week</option>
+        <option value="this_month" {% if filter_type == 'this_month' %}selected{% endif %}>This Month</option>
+        <option value="last_three_months" {% if filter_type == 'last_three_months' %}selected{% endif %}>Last Three Months</option>
+      </select>
+      <input type="text" name="search" placeholder="Search" value="{{ search_term }}">
+      <button type="submit">Apply</button>
+    </form>
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Timestamp</th>
+        <th>User</th>
+        <th>Activity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for entry in journal %}
+        <tr>
+          <td>{{ entry.timestamp }}</td>
+          <td>{{ entry.user }}</td>
+          <td>{{ entry.action }}</td>
+        </tr>
+      {% empty %}
+        <tr>
+          <td colspan="3">No records found</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Production View</h1>
+  <form method="post">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="recipe">Select Recipe</label>
+      <select name="recipe" class="form-control" required>
+        <option value="" selected disabled>Select a Recipe</option>
+        {% for recipe in recipes %}
+          <option value="{{ recipe.pk }}">{{ recipe.flavor }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="quantity_produced">Quantity Produced (kg)</label>
+      <input type="number" name="quantity_produced" class="form-control" required>
+    </div>
+    <div class="form-group">
+      <label for="container_size">Container Size</label>
+      <select name="container_size" class="form-control" required>
+        <option value="0.5">0.5 Litres</option>
+        <option value="3">3 Litres</option>
+        <option value="6">6 Litres</option>
+      </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Produce</button>
+  </form>
+  <br>
+  <h2>Available Recipes</h2>
+  <ul>
+    {% for recipe in recipes %}
+      <li>{{ recipe.flavor }}</li>
+    {% endfor %}
+  </ul>
+{% endblock %}

@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% for message in messages %}
+<div class="alert alert-success">
+  {{ message }}
+</div>
+{% endfor %}
+    <div class="container">
+        <div class="row mt-5">
+            <div class="col text-center">
+                <h1>Welcome, {{ user }}</h1>
+            </div>
+        </div>
+        <div class="row mt-3">
+            <div class="col text-center">
+                <h2>Your options for {{ user_level }} are:</h2>
+                <ul class="list-group centered-list">
+                    {% for option, url_name in user_options.items %}
+                        <li class="list-group-item">
+                            {% if option == "Clock in/out" %}
+                                <form action="{% url url_name %}" method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" class="btn btn-primary btn-lg">{{ option }}</button>
+                                </form>
+                            {% else %}
+                                <a href="{% url url_name %}" class="btn btn-primary btn-lg">{{ option }}</a>
+                            {% endif %}
+                        </li>
+                    {% endfor %}
+                </ul>                
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>    
+    .centered-list {
+        max-width: 400px;
+        margin: 0 auto;
+    }
+    .btn, .btn-primary {
+      background-color: #02796e;
+      border-color: #FFAD94; 
+      color: white; 
+      border-width: 4px; 
+    }
+    .list-group-item {
+        background: none; 
+        border: none;
+        text-align: center;
+        margin-top: 10px;
+    } 
+</style>
+{% endblock %}

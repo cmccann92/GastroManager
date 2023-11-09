@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Recipe List</h1>
+  <ul>
+    {% for recipe in recipes %}
+      <li>
+        <a href="{% url 'recipe_detail' recipe.pk %}">{{ recipe.flavor }}</a>
+        {% if user_level == "Manager" %}
+          <a href="{% url 'delete_recipe' recipe.pk %}" class="btn btn-danger">Delete</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  {% if request.user.level == 'Manager' or request.user.level == 'Production' %}
+  <p>You have permissions to access recipe details.</p>
+  {% else %}
+    <p>You need Manager or Production permissions to access recipe details.</p>
+  {% endif %}
+  {% if request.user.level == "Manager" %}
+    <a href="{% url 'create_recipe' %}" class="btn btn-primary">Create New Recipe</a>
+    <br>
+    <br>
+    <p>You have Manager permissions to create and delete recipes.</p>
+  {% else %}
+    <p>You need Manager permissions to create and delete recipes.</p>
+  {% endif %}
+</div>
+{% endblock %}

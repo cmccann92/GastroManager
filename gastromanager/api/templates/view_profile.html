@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <div class="container">
+    <h1>Profile for {{ user.username }}</h1>
+    <ul>
+        <li><strong>Username:</strong> {{ user.username }}</li>
+        <li><strong>First Name:</strong> {{ user.first_name }}</li>
+        <li><strong>Last Name:</strong> {{ user.last_name }}</li>
+        <li><strong>Email:</strong> {{ user.email }}</li>
+        <li><strong>Date of Birth:</strong> {{ user.date_of_birth }}</li>
+        <li><strong>Address Line 1:</strong> {{ user.address.line_1 }}</li>
+        <li><strong>Address Line 2:</strong> {{ user.address.line_2 }}</li>
+        <li><strong>City:</strong> {{ user.address.city }}</li>
+        <li><strong>State:</strong> {{ user.address.state }}</li>
+        <li><strong>Postal Code:</strong> {{ user.address.postal_code }}</li>
+        <li><strong>Country:</strong> {{ user.address.country }}</li>
+        <li><strong>Phone:</strong> {{ user.phone }}</li>
+        <li><strong>Level:</strong> {{ user.level }}</li>
+    </ul>
+
+    <form method="post" action="{% url 'badge_maker' %}">
+      {% csrf_token %}
+      <input type="hidden" name="employee_id" value="{{ user.id }}">
+      <button type="submit" class="btn btn-secondary">Generate Badge</button>
+    </form>
+    <br>
+    <a href="{% url 'edit_profile' user.id %}" class="btn btn-primary">Edit Profile</a>
+    <br>
+    <br>
+    {% if request.user.level == 'Manager' %}
+      <a href="{% url 'staff_view' %}" class="btn btn-danger">Back</a>
+    {% endif %}
+  </div>
+</body>
+</html>
+{% endblock %}

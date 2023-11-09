@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h2>Production Calculator</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Calculate Production</button>
+  </form>
+
+  {% if form.errors %}
+    <div class="alert alert-danger">
+      <strong>Error:</strong> Please correct the errors below.
+    </div>
+  {% endif %}
+
+  {% if total_ingredient_quantities %}
+    <h3>Total Ingredient Quantities:</h3>
+    <ul>
+      {% for ingredient_id, quantity in total_ingredient_quantities.items %}
+        <li>{{ ingredient_id }}: {{ quantity }} grams</li>
+      {% endfor %}
+    </ul>
+  {% endif %}
+{% endblock %}
